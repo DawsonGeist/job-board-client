@@ -1,0 +1,32 @@
+
+.parentPageContainer {
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+#NavbarLogoAnchor {
+    color: brown;
+}
+
+#NavbarLogoImg {
+    padding-right: 0%;
+}
+
+#NavbarBrandText {
+    color: brown;
+    display: inline-block;
+    padding-left: 5%;
+    margin: 0;
+}
+
+#loginPageLoginComponentContainer {
+    display: flex;
+    min-height: 40vh;
+}
+
+.loginComponentContainer {
+    width: 40%;
+    align-self: center;
+}
