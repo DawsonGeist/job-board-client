@@ -7,10 +7,19 @@ Applications need the ability to upload related files -> Need a section to add q
 Jobs need to be posted with salaries, desired skills
 
 TODO:
-
+4/10/2024
 1. File upload component for Applications
 1.a design the easy apply page
 1.b design the file upload component
 1.c research ftp-sockets for uploading from client to server and vice verse
 
 2. Update database to contain necessary fields for salary, and add table for tracking file content with job applications
+
+4/12/2024
+Well file upload, Chat GPT parsing, and Resume Content displayed in relevant sections on front end 
+-> Need to understand how I am going to store this on the backend
+-> Also probably going to not save the physical resume... unless I want to save it for future applications? Like easy apply
+
+Need to present this data on the company side for each applicant
+-> Users should be able to customize an application for each job they apply to
+-> Is there a way to store only the changes to a base set and not store an entire duplicate copy? (Research Diff Merge)

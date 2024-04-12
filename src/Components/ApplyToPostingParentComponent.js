@@ -5,12 +5,56 @@ import axios from 'axios'
 const renderSubmissionPreview = (appContent) => {
     if(appContent != null && appContent != "loading") {
         return (
-            <div className='container'>
-                <h4>Work Expeirence</h4>
+            <div className='container Resume'>
+                <br/>
+                <h4>Education</h4>
+                <br/>
+                <div>{appContent.Education_History.map(school => {
+                    return (
+                        <div className='container'> 
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Degree:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={school.Degree}></input>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Subject:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={school.Subject}></input>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>University:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={school.University}></input>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Dates:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={school.Graduation_Date}></input>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}</div>
+
+                <h4>Work Experience</h4>
                 <br/>
                 <div>{appContent.Work_History.map(job => {
-                    console.log("JOB")
-                    console.log(job)
                     return (
                         <div className='container'>
                             <h5>{job.Title}</h5>
@@ -24,6 +68,129 @@ const renderSubmissionPreview = (appContent) => {
                             })}</div>
                             <br/>
                         </div>
+                    );
+                })}</div>
+                <br/>
+                <h4>Volunteering</h4>
+                <br/>
+                <div>{appContent.Volunteer_History.map(vol => {
+                    return (
+                        <div className='container'>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Title:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={vol.Title}></input>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Organization:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={vol.Company}></input>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Dates:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={vol.Dates}></input>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Responsibilities:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={vol.Responsibilities}></input>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}</div>
+                <br/>
+                <h4>Personal Projects</h4>
+                <br/>
+                <div>{appContent.Personal_Projects.map(proj => {
+                    return (
+                        <div className='container'>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Title:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={proj.Title}></input>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Dates:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={proj.Dates}></input>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Description:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={proj.Description}></input>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}</div>
+                <br/>
+                <h4>Awards</h4>
+                <br/>
+                <div>{appContent.Awards?.map(award => {
+                    return (
+                        <div className='container'>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Title:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={award.Title}></input>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Dates:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={award.Dates}></input>
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='row'>
+                                <div className='col'>
+                                    <p><b>Description:</b></p>
+                                </div>
+                                <div className='col'>
+                                    <input type='text' value={award.Description}></input>
+                                </div>
+                            </div>
+                            <br/>
+                        </div>
+                    );
+                })}</div>
+                <br/>
+                <h4>Skills</h4>
+                <br/>
+                <div>{appContent.Relevant_Skills?.map(skill => {
+                    return (
+                        <p>{skill}</p>
                     );
                 })}</div>
             </div>
@@ -66,6 +233,7 @@ const handleOnSubmit = (event, setAppContent) => {
             var response = JSON.parse((x[0]).resume)
             var sectionsStr = (response.choices[0]).message.content
             var sections = JSON.parse(sectionsStr)
+            console.log('SECTIONS:')
             console.log(sections)
             setAppContent(sections)
         })
