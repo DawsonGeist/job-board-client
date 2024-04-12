@@ -29,7 +29,7 @@ const handleApplication = (event, user_id, company_id, job_title, setRefresh) =>
 }
 
 const JobFeed = () => {
-    // This should be for having pledges on campus... Tobacco, Strippers, Alcohol.. Rating Users and Providers. Five dollars at the door. Scan ID's. Delay release of address information
+
     const [jobs, setJobs] = useState([])
     const [fetchJobs, setFetchJobs] = useState(true)
     const [refresh, setRefresh] = useState(true)
