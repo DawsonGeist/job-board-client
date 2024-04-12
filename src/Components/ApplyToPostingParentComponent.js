@@ -22,6 +22,9 @@ const ApplyToPostingParentComponent = ({company, posting}) => {
     const [resumePath, setResumePath] = useState('')
     const [coverLetterPath, setCoverLetterPath] = useState('')
 
+    let context = JSON.parse(localStorage.getItem('context'))
+    let actionURL = `http://localhost:5156/api/ApplicationUpload/${context.user.user_id}`
+
     return (
         <div className='container'>
             <h1>Application Portal</h1>
@@ -49,25 +52,27 @@ const ApplyToPostingParentComponent = ({company, posting}) => {
                 <h6>Required Docs</h6>
                 <div className='row'>
                     <div className='d-inline-block d-flex flex-row justify-content-around' style={{alignSelf:'center'}}>
-                        <h6>Resume:</h6>
-                        <form action="http://localhost:5156/api/ApplicationUpload" method="post" enctype="multipart/form-data" onSubmit={(event) => {
+                        <form action={actionURL} method="post" enctype="multipart/form-data" onSubmit={(event) => {
                             handleOnSubmit(event)
                         }}>
-                            <input id="file" name="file" type="file" />
+                            <div className='row'>
+                                <div className='col'>
+                                    <h6>Resume:</h6>
+                                </div>
+                                <div className='col'>
+                                    <input id="file" name="resume" type="file" />
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col'>
+                                    <h6>Cover Letter:</h6>
+                                </div>
+                                <div className='col'>
+                                    <input id="file" name="coverLetter" type="file" />
+                                </div>
+                            </div>
                             <button>Upload</button>
                         </form>
-                    </div>
-                </div>
-                <div className='row'>    
-                    <div className='d-inline-block d-flex flex-row justify-content-around' style={{alignSelf:'center'}}>
-                        <h6>Cover Letter:</h6>
-                        <form action="http://localhost:5156/api/ApplicationUpload" method="post" enctype="multipart/form-data" onSubmit={(event) => {
-                            handleOnSubmit(event)
-                        }}>
-                            <input id="file" name="file" type="file" />
-                            <button>Upload</button>
-                        </form>
-                        
                     </div>
                 </div>
             </div>
