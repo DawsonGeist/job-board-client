@@ -1,6 +1,51 @@
 import {React, useState, useEffect} from 'react'
+import axios from 'axios'
 
-const handleOnSubmit = (event) => {
+
+const renderSubmissionPreview = (appContent) => {
+    if(appContent != null && appContent != "loading") {
+        return (
+            <div className='container'>
+                <h4>Work Expeirence</h4>
+                <br/>
+                <div>{appContent.Work_History.map(job => {
+                    console.log("JOB")
+                    console.log(job)
+                    return (
+                        <div className='container'>
+                            <h5>{job.Title}</h5>
+                            <h6>{job.Company}</h6>
+                            <p>{job.Dates}</p>
+                            <br/>
+                            <div>{job.Responsibilities.map(responsibility => {
+                                return (
+                                    <p>{responsibility}</p>
+                                )
+                            })}</div>
+                            <br/>
+                        </div>
+                    );
+                })}</div>
+            </div>
+        )
+    }
+    else if(appContent == "loading") {
+        return (
+            <div className='container'>
+                <h3>AI is parsing your resume, please hold</h3>
+            </div>
+        )
+    }
+    else {
+        return (
+            <div className='container'>
+                <p>Upload your resume to preview and edit what recruiters will see</p>
+            </div>
+        )
+    }
+}
+
+const handleOnSubmit = (event, setAppContent) => {
     event.preventDefault();
     const form = event.currentTarget;
     const url = new URL(form.action);
@@ -13,14 +58,24 @@ const handleOnSubmit = (event) => {
     }
 
     fetch(url, fetchOptions).then(res => {
+        //console.log(res)
+        res.body.getReader().read().then(content => {
+            var dc = new TextDecoder()
+            var y = dc.decode(content.value)
+            var x = JSON.parse(y)
+            var response = JSON.parse((x[0]).resume)
+            var sectionsStr = (response.choices[0]).message.content
+            var sections = JSON.parse(sectionsStr)
+            console.log(sections)
+            setAppContent(sections)
+        })
         alert(`File Upload Status: ${res.statusText}`)
     })
 }
 
 
 const ApplyToPostingParentComponent = ({company, posting}) => {
-    const [resumePath, setResumePath] = useState('')
-    const [coverLetterPath, setCoverLetterPath] = useState('')
+    const [appContent, setAppContent] = useState(null)
 
     let context = JSON.parse(localStorage.getItem('context'))
     let actionURL = `http://localhost:5156/api/ApplicationUpload/${context.user.user_id}`
@@ -53,7 +108,8 @@ const ApplyToPostingParentComponent = ({company, posting}) => {
                 <div className='row'>
                     <div className='d-inline-block d-flex flex-row justify-content-around' style={{alignSelf:'center'}}>
                         <form action={actionURL} method="post" enctype="multipart/form-data" onSubmit={(event) => {
-                            handleOnSubmit(event)
+                            setAppContent('loading')
+                            handleOnSubmit(event, setAppContent)
                         }}>
                             <div className='row'>
                                 <div className='col'>
@@ -76,6 +132,7 @@ const ApplyToPostingParentComponent = ({company, posting}) => {
                     </div>
                 </div>
             </div>
+            <>{renderSubmissionPreview(appContent)}</>
         </div>
     )
 }
