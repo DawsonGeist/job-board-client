@@ -41,7 +41,7 @@ const EditEducationComponent = ({Education, index}) => {
     return (
         <div className='d-flex flex-column mt-4'>
             <h5 style={{alignSelf:"flex-start"}}>{header}</h5>
-            <form>
+            <div>
                 <div className='form-group'>
                     <label style={{display:"flex"}}>Degree:</label>
                     <input className="form-control" type='text' value={Education.Degree} style={{width:"100%"}}></input>
@@ -55,7 +55,7 @@ const EditEducationComponent = ({Education, index}) => {
                     <input className="form-control" type='text' value={Education.University}></input>
                 </div>
                 <>{RenderDates(Education.Graduation_Date)}</>
-            </form>
+            </div>
         </div>
     )
 }

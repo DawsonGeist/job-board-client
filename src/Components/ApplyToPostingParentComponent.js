@@ -2,13 +2,15 @@ import {React, useState, useEffect} from 'react'
 import axios from 'axios'
 import EditEducationComponent from './EditEducationComponent'
 import EditWorkExperience from './EditWorkExperienceComponent'
+import EditVolunteeringComponent from './EditVolunteeringComponent'
+import EditAwardsComponent from './EditAwardsComponent'
 
 
 const renderSubmissionPreview = (appContent) => {
     if(appContent != null && appContent != "loading") {
         console.log(appContent.Education_History)
         return (
-            <div className='container Resume'>
+            <form>
                 <br/>
                 <h4>Education</h4>
                 <div className='d-flex flex-column'>{appContent.Education_History.map((school, index) => {
@@ -26,46 +28,9 @@ const renderSubmissionPreview = (appContent) => {
                 })}</div>
                 <br/>
                 <h4>Volunteering</h4>
-                <br/>
-                <div>{appContent.Volunteer_History.map(vol => {
+                <div>{appContent.Volunteer_History.map((vol, index) => {
                     return (
-                        <div className='container'>
-                            <div className='row'>
-                                <div className='col'>
-                                    <p><b>Title:</b></p>
-                                </div>
-                                <div className='col'>
-                                    <input type='text' value={vol.Title}></input>
-                                </div>
-                            </div>
-                            <br/>
-                            <div className='row'>
-                                <div className='col'>
-                                    <p><b>Organization:</b></p>
-                                </div>
-                                <div className='col'>
-                                    <input type='text' value={vol.Company}></input>
-                                </div>
-                            </div>
-                            <br/>
-                            <div className='row'>
-                                <div className='col'>
-                                    <p><b>Dates:</b></p>
-                                </div>
-                                <div className='col'>
-                                    <input type='text' value={vol.Dates}></input>
-                                </div>
-                            </div>
-                            <br/>
-                            <div className='row'>
-                                <div className='col'>
-                                    <p><b>Responsibilities:</b></p>
-                                </div>
-                                <div className='col'>
-                                    <input type='text' value={vol.Responsibilities}></input>
-                                </div>
-                            </div>
-                        </div>
+                        <EditVolunteeringComponent Volunteer={vol} index={index}/>
                     );
                 })}</div>
                 <br/>
@@ -105,38 +70,9 @@ const renderSubmissionPreview = (appContent) => {
                 })}</div>
                 <br/>
                 <h4>Awards</h4>
-                <br/>
-                <div>{appContent.Awards?.map(award => {
+                <div>{appContent.Awards?.map((award, index) => {
                     return (
-                        <div className='container'>
-                            <div className='row'>
-                                <div className='col'>
-                                    <p><b>Title:</b></p>
-                                </div>
-                                <div className='col'>
-                                    <input type='text' value={award.Title}></input>
-                                </div>
-                            </div>
-                            <br/>
-                            <div className='row'>
-                                <div className='col'>
-                                    <p><b>Dates:</b></p>
-                                </div>
-                                <div className='col'>
-                                    <input type='text' value={award.Dates}></input>
-                                </div>
-                            </div>
-                            <br/>
-                            <div className='row'>
-                                <div className='col'>
-                                    <p><b>Description:</b></p>
-                                </div>
-                                <div className='col'>
-                                    <input type='text' value={award.Description}></input>
-                                </div>
-                            </div>
-                            <br/>
-                        </div>
+                        <EditAwardsComponent Award={award} index={index}/>
                     );
                 })}</div>
                 <br/>
@@ -147,7 +83,7 @@ const renderSubmissionPreview = (appContent) => {
                         <p>{skill}</p>
                     );
                 })}</div>
-            </div>
+            </form>
         )
     }
     else if(appContent == "loading") {
